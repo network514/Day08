@@ -6,31 +6,35 @@ public class J03_Quiz_main {
 //		학생정보 프로그램 
 //		학생 정보 : 이름, 국어, 영어, 수학, 총점, 평균, 등급(수우미양가)
 //		메뉴 :  
+
 		J03_Quiz_studentInform inform = new J03_Quiz_studentInform();
-		String num = JOptionPane.showInputDialog("학생정보 프로그램\n 1. 학생정보 입력 \n 2. 학생정보 출력\n 3. 학생 정보 수정" );
-			while(true){
-				switch (num) {
-				case "1":
+		
+		while(true){
+		String number=JOptionPane.showInputDialog("학생정보 프로그램\n 1. 학생정보 입력 \n 2. 학생정보 출력\n 3. 학생 정보 수정\n4. 프로그램종료" );
+		int num = Integer.parseInt(number);
+			
+				home : switch (num) {
+				case 1:
 //					1. 학생 정보 입력
 					infomInsert(inform);
-					break;
-				case "2":
+					break home;
+				case 2:
 		//			2. 학생 정보 출력
 					infomPrint(inform);
-					break;
-				case "3":
+					break home;
+				case 3:
 		//			3. 학생 정보 수정
-					infomModify(inform);
-					break;
-				case "4":
+					infomInsert(inform);
+					break home;
+				case 4:
 		//			4. 프로그램 종료
 					System.exit(0);
 					break;
-				default:
+				default :
 					JOptionPane.showMessageDialog(null, "잘못입력하셨습니다. 다시 입력해주세요.");
-					break;
+					break home;
 				}
-			}
+		}
 
 //		1 선택 시; 이름, 국어, 영어, 수학 입력
 //		2 선택 시; 학생의 모든 정보 출력
@@ -45,11 +49,21 @@ public class J03_Quiz_main {
 		inform.eng = Integer.parseInt(engParam);
 		String mathParam = JOptionPane.showInputDialog("수학 점수를 입력하세요.");
 		inform.math = Integer.parseInt(mathParam);
+	}
+	public static void infomPrint(J03_Quiz_studentInform inform){
+		calculate(inform);
+		JOptionPane.showMessageDialog(null, inform.name+"님의 \n국어 점수 : " + inform.kor + "영어 점수 : " + inform.kor
+				+ "수학 점수 : " + inform.kor + "총합 : " + inform.total + "평균 : " + inform.avg + "등급" + inform.grade);
+	}
+	
+	public static void calculate(J03_Quiz_studentInform inform){
 		inform.total = inform.kor + inform.eng + inform.math;
 		inform.avg = ((double)inform.total/3);
-		
+		grade(inform);
+	}
+	
+	public static void grade(J03_Quiz_studentInform inform){
 		int avgNum = (int)inform.avg;
-		
 		switch(avgNum/10){
 		case 10: case 9:
 			inform.grade = "수";
@@ -64,11 +78,7 @@ public class J03_Quiz_main {
 		default :
 			inform.grade = "가";
 		}
-	}
-	public static void infomPrint(J03_Quiz_studentInform inform){
-		JOptionPane.showMessageDialog(null, inform.name+"님의 \n국어 점수 : " + inform.kor + "영어 점수 : " + inform.kor
-				+ "수학 점수 : " + inform.kor + "총합 : " + inform.total + "평균 : " + inform.total + "등급" + inform.avg);
-	}
+	}/*
 	public static void infomModify(J03_Quiz_studentInform inform){
 		String korParam = JOptionPane.showInputDialog("국어 점수를 입력하세요.");
 		inform.kor = Integer.parseInt(korParam);
@@ -76,5 +86,5 @@ public class J03_Quiz_main {
 		inform.eng = Integer.parseInt(engParam);
 		String mathParam = JOptionPane.showInputDialog("수학 점수를 입력하세요.");
 		inform.math = Integer.parseInt(mathParam);
-	}
+	}*/
 }
